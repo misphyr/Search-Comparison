@@ -6,7 +6,7 @@ public class Main {
 	public static int sub = -1;
 	
 
-	
+	//código bagunçado, será organizado
 	public static void main(String[] args) {
 		Random r = new Random();
 		int[] vet = new int[100];
@@ -34,8 +34,8 @@ public class Main {
 		a++;
 		}
 	}
-	//stringzinn
 
+	//Busca temporaria, precisa da sequencial e da binária
 	public static void BuscaFeitaPorFa(int[] vet, Jogador j0) {
 		boolean p = false;
 		
