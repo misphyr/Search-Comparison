@@ -3,7 +3,9 @@ import java.util.Random;
 public class Jogador {
 
 	int tam = 5;
-	int[][] car = new int[tam][tam];
+	int[][] car = new int[tam][tam];	
+	public int[] notFound = new int[100]; 
+	public int nF = 0;
 	
 	public int[][] Cartela() {
 		Random r = new Random();
