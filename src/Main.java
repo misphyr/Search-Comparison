@@ -15,17 +15,14 @@ public class Main {
 			}
 			*/
 		}
-		Jogador j1 = new Jogador(vet);
-		
-		Jogador j2 = new Jogador(vet);
-		
-		Jogador j3 = new Jogador(vet);
-		
-		Jogador j4 = new Jogador(vet);
+		Jogador j1 = new Jogador(vet,2);
+//		
+//		Jogador j2 = new Jogador(vet);
+//		
+//		Jogador j3 = new Jogador(vet);
+//		
+//		Jogador j4 = new Jogador(vet);
 	}
 
-	
-
-	
 }
 

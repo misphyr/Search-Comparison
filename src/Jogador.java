@@ -12,11 +12,48 @@ public class Jogador {
 	public int count=0;
 	public int[] vet;
 
-	Jogador(int[] vet) {
+	Jogador(int[] vet,int x) {
 		this.vet = vet;
 		Cartela();
-		BuscaFeitaPorFa(this.vet);
+		count = 0;
+		for(int i = 0; i < tam; i++) {
+			for(int j = 0; j < tam; j++) {
+				BuscaSequencial(car[i][j]);
+			}
+		}
 		ExibirResultado();
+		
+		count = 0;
+		Reset();
+	switch(x) {
+	case 1:
+		QuickSort();	
+		for(int i = 0; i < tam; i++) {
+			for(int j = 0; j < tam; j++) {
+		BuscaBinaria(car[i][j]);
+		}
+			}
+		break;
+	case 2:
+		ShellSort();
+		for(int i = 0; i < tam; i++) {
+			for(int j = 0; j < tam; j++) {
+		BuscaBinaria(car[i][j]);
+		}
+			}
+		break;
+	case 3:
+		SelectSort();
+		//BuscaBinaria();
+		break;
+	case 4:
+		QuickSort();
+		//BuscaBinaria();
+		break;
+	}
+	ExibirResultado();
+	
+		
 	}
 	//Cartela do jogador
 	//Ferramenta principal
@@ -58,25 +95,88 @@ public class Jogador {
 		}
 	
 	//Busca temporaria, precisa da sequencial e da binária
-	public void BuscaFeitaPorFa(int[] vet) {
-		for(int i = 0; i < tam; i++) {
-			for(int j = 0; j < tam; j++) {
-				for(int a = 0; a < vet.length; a++) {
-					count++;
-					
-					if(car[i][j] == vet[a]) {
-						break;
-					}
-					
-					if((count / 100) != i && (count % 100) == 0) {
-						notFound[nF] = car[i][j];
-						nF++;
-					}
-				}
+	public void BuscaSequencial(int x) {
+		for(int i = 0; i< vet.length;i++) {
+			count++;
+			if(x == vet[i]) {
+		//Valor encontrado
+				
+				return;
 			}
+		}
+		//Valor não encontrado
+		notFound[nF] = x;
+		nF++;
+		//Coloca no vetor de não encontrados e aumenta a posição que será usada pelo próximo
 	}
+	
+	public void BuscaBinaria(int x) {
+		int low = 0;
+		int high = vet.length-1;
+		while(low <= high){
+			count++;
+			int medium = (high + low) / 2;
+			if(x > vet[medium] ) {
+				low = medium + 1;
+			}
+			else if(x < vet[medium]) {
+				high = medium -1;
+			}else {
+				//medium é o número encontrado
+				return;
+			}
+		}
+		//caso saia é o número não encontrado
+		notFound[nF] = x;
+		nF++;
+		return;
+			
 	}
+	
+	public void ShellSort() {
+		int h = 1;
+		while(h < vet.length) {
+			h = h * 3 + 1;
+		}
+		
+		h /= 3;
+		int c, j;
+		
+		while(h > 0){
+			for(int i = h; i < vet.length; i++) {
+				c = vet[i];
+				j = i;
+				count++;
+				while(j >= h && vet[j - h] > c) {
+			
+					vet[j] = vet[j - h];
+					j -= h;
+					
+				}
+				
+				vet[j] = c;
+				
+			}
+			h /= 2;
+			
+		}
+	
+	}
+	
+	public void SelectSort() {
+		
+	}
+	
+	public void QuickSort() {
+		
+	}
+	
+	void Reset() {
+		count = 0;
+		nF = 0;
+		notFound = new int[100]; 
+		
+	}
+	
 
-	
-	
 }
