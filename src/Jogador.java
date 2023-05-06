@@ -19,7 +19,8 @@ public class Jogador extends Main{
 		this.vet = vet;
 		Cartela();
 		count = 0;
-		System.out.println("|------------------------------------------------\n|\n| Busca sequencial:");
+		System.out.println("|------------------------------------------------\n|"
+				+ "\n| Busca sequencial:");
 		printa();
 
 		for(int i = 0; i < tam; i++) {
@@ -28,7 +29,8 @@ public class Jogador extends Main{
 		ExibirResultado();
 		
 		Reset();
-		System.out.println("\n|------------------------------------------------\n|\n| Busca binária:");
+		System.out.println("\n|------------------------------------------------\n|"
+				+ "\n| Busca binária:");
 	switch(x) {
 	case 1:
 		QuickSort();	
