@@ -19,7 +19,7 @@ public class Jogador extends Main{
 		this.vet = vet;
 		Cartela();
 		count = 0;
-		System.out.println("|\n|------------------------------------------------\n|\n| Busca sequencial:");
+		System.out.println("|------------------------------------------------\n|\n| Busca sequencial:");
 		printa();
 
 		for(int i = 0; i < tam; i++) {
@@ -44,11 +44,15 @@ public class Jogador extends Main{
 		break;
 	case 3:
 		SelectSort();
-		//BuscaBinaria();
+		for(int i = 0; i < tam; i++) {
+			BuscaBinaria(car[i]);
+			}
 		break;
 	case 4:
 		QuickSort();
-		//BuscaBinaria();
+		for(int i = 0; i < tam; i++) {
+			BuscaBinaria(car[i]);
+			}
 		break;
 	}
 	printa();
@@ -173,6 +177,17 @@ public class Jogador extends Main{
 	}
 	
 	public void SelectSort() {
+		for (int i = 0; i < vet.length - 1; i++){
+			int a = i;
+			for(int j = i + 1; j < vet.length; j++){
+				if(vet[j] < vet[a]) {
+					a = j;
+					}
+				}
+			int temp = vet[a];
+					vet[a] = vet[i];
+					vet[i] = temp;
+					}
 		
 	}
 	

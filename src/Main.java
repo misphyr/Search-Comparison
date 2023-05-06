@@ -13,7 +13,7 @@ public class Main {
 	//O primeiro apostador a preencher todos os números, ganha
 	//Os números do vetor solução não usados nas cartelas devem ser mostrados
 	
-	public static int[] vet = new int[10];
+	public static int[] vet = new int[100];
 
 	public static void main(String[] args) {
 		//método para preencher o vetor com random's
@@ -23,11 +23,13 @@ public class Main {
 		// vet = vetor solução
 		// x = Tipo de Sort:
 		// 1 = Quick / 2 = Shell / 3 = Select //
-		System.out.println("| Primeira Cartela:");
-
+		System.out.print("|\n|------------------------------------------------");
+		System.out.println("\n| Primeira Cartela:");
 		Jogador j1 = new Jogador(vet,2);
-//		
-//		Jogador j2 = new Jogador(vet,2);
+		
+		System.out.print("\n|\n|------------------------------------------------");
+		System.out.println("\n| Segunda Cartela:");
+		Jogador j2 = new Jogador(vet,3);
 //		
 //		Jogador j3 = new Jogador(vet);
 //		
