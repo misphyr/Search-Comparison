@@ -1,46 +1,46 @@
 import java.util.Random;
 
-public class Jogador {
-
-	//variaveis para tamanho quadrado da matriz (car)tela, matriz cartela, vetor de nºs n encontrados e quantidade de números n encontrados
-	//Já que passei os nFs para cá, colocar a função que os usa aqui tbm
-	int tam = 5;
-	int[][] car = new int[tam][tam];	
+public class Jogador extends Main{
 	
-	public int[] notFound = new int[100]; 
-	public int nF = 0;
-	public int count=0;
-	public int[] vet;
+	//tamanho da cartela
+	private int tam = 5;
+	//vetor da cartela do jogador
+	private int[] car = new int[tam];	
+	//vetor dos nºs não encontrados
+	private int[] notFound = new int[100]; 	
+	//vetor solução
+	private int[] vet;
+	//forma de navegar no vetor dos não encontrados
+	private int nF = 0;
+	//Contador de interações
+	private int count=0;
 
 	Jogador(int[] vet,int x) {
 		this.vet = vet;
 		Cartela();
 		count = 0;
+		System.out.println("|\n|------------------------------------------------\n|\n| Busca sequencial:");
+		printa();
+
 		for(int i = 0; i < tam; i++) {
-			for(int j = 0; j < tam; j++) {
-				BuscaSequencial(car[i][j]);
-			}
+				BuscaSequencial(car[i]);
 		}
 		ExibirResultado();
 		
-		count = 0;
 		Reset();
+		System.out.println("\n|------------------------------------------------\n|\n| Busca binária:");
 	switch(x) {
 	case 1:
 		QuickSort();	
 		for(int i = 0; i < tam; i++) {
-			for(int j = 0; j < tam; j++) {
-		BuscaBinaria(car[i][j]);
+		BuscaBinaria(car[i]);
 		}
-			}
 		break;
 	case 2:
 		ShellSort();
 		for(int i = 0; i < tam; i++) {
-			for(int j = 0; j < tam; j++) {
-		BuscaBinaria(car[i][j]);
+		BuscaBinaria(car[i]);
 		}
-			}
 		break;
 	case 3:
 		SelectSort();
@@ -51,47 +51,56 @@ public class Jogador {
 		//BuscaBinaria();
 		break;
 	}
+	printa();
 	ExibirResultado();
 	
 		
 	}
 	//Cartela do jogador
 	//Ferramenta principal
-	public int[][] Cartela() {
+	public void Cartela() {
 		Random r = new Random();
 		
 		for(int i = 0; i < tam; i++) {
-			for(int j = 0; j< tam; j++) {
-				car[i][j] = r.nextInt(100);
+				car[i] = r.nextInt(100);
+				for(int a = 0; a < i; a++) {
+				if(vet[i] == vet[a]) {
+					i--;
+					break;
+				}
 			}
 		}
-		return car;
 	}
 	
 	//função que printa a cartela
 	public void ExibirCartela() {
+		System.out.print("| Cartela:\n| ");
 		for(int i = 0; i < tam; i++) {
-			for(int j = 0; j < tam; j++) {
-			System.out.print(car[i][j] + " |");
+			if(i != 0) {
+				System.out.print(" | ");
 			}
-			System.out.println("\n");
+			System.out.print(car[i]);
 		}
+		System.out.print(" |\n|\n");;
 	}
 	
 	public void ExibirResultado() {
-		System.out.println("\n");
-		System.out.println("Contador = " + count);
-		System.out.println("\n");
+		System.out.println("\n|");
+		System.out.println("| Contador = " + count);
 		ExibirCartela();
 		
-		System.out.println("Quantidade de números não encontrados: "+ nF);
-		int a = 0;
+		System.out.println("| Quantidade de números não encontrados: "+ nF);
 
-		System.out.println("\nNúmeros não encontrados: ");
-		while(a < nF && nF > 0) {
-		System.out.print(notFound[a] + " | ");
-		a++;
+		System.out.print("|\n| Números não encontrados:");
+		System.out.print("\n| ");
+		for(int a = 0;a < nF && nF > 0;a++) {
+			if(a != 0) {
+			System.out.print(" | ");
+			}
+		System.out.print(notFound[a]);
 		}
+		
+		System.out.print(" |");
 		}
 	
 	//Busca temporaria, precisa da sequencial e da binária
@@ -172,11 +181,23 @@ public class Jogador {
 	}
 	
 	void Reset() {
-		count = 0;
-		nF = 0;
-		notFound = new int[100]; 
+		this.count = 0;
+		this.nF = 0 ;
+		this.notFound = new int[100];
 		
 	}
+	
+	public void printa() {
+	System.out.print("|\n|\n| Vetor Solução:\n| ");
+		for(int i=0;i<vet.length;i++) {
+
+			if(i != 0) {
+				System.out.print(" | ");
+			}
+				System.out.print(vet[i]);	
+	}
+		System.out.print("\n|");
+}
 	
 
 }
