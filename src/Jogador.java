@@ -1,31 +1,28 @@
 import java.util.Random;
 
-public class Jogador{ // teste retirando extends main 	
+ class Jogador{ // teste retirando extends main 	
 	
 	//tamanho da cartela
 	private int tam = 5;
 	//vetor da cartela do jogador
 	private int[] car = new int[tam];	
 	//vetor dos nºs não encontrados
-	private int[] notFound = new int[100]; 	
-	//vetor solução
-	private int[] vet;
+	private int[] notFound = new int[100]; 
 	//forma de navegar no vetor dos não encontrados
 	private int nF = 0;
 	//Contador de interações
 	private int count=0;
-
+	
+	
 	Jogador(int[] vet,int x) {
-		this.vet = vet;
+		
 		Cartela();
 		count = 0;
 		System.out.println("|------------------------------------------------\n|"
 				+ "\n| Busca sequencial:");
-		printa();
+		printa(vet);
 
-		for(int i = 0; i < tam; i++) {
-				BuscaSequencial(car[i]);
-		}
+		LoopBS(vet);
 		ExibirResultado();
 		
 		Reset();
@@ -33,35 +30,30 @@ public class Jogador{ // teste retirando extends main
 				+ "\n| Busca binária:");
 	switch(x) {
 	case 1:
-		QuickSort(car, 0, car.length - 1);	// Recebe cartela, 0 (low), tamanho do vetor - 1 (high) ((-1 por conta da recursão))
-		for(int i = 0; i < tam; i++) {
-		BuscaBinaria(car[i]);
-		}
+		System.out.println("|\n| Quick Sort");
+		QuickSort(vet,0, vet.length - 1);	// Recebe cartela, 0 (low), tamanho do vetor - 1 (high) ((-1 por conta da recursão))
+		LoopBB(vet);
 		break;
 	case 2:
-		ShellSort();
-		for(int i = 0; i < tam; i++) {
-		BuscaBinaria(car[i]);
-		}
+		System.out.println("|\n| Shell Sort");
+		ShellSort(vet);
+		LoopBB(vet);
 		break;
 	case 3:
-		SelectSort();
-		for(int i = 0; i < tam; i++) {
-			BuscaBinaria(car[i]);
-			}
-		break;
-	case 4:
-		QuickSort(car, 0, car.length - 1);
-		for(int i = 0; i < tam; i++) {
-			BuscaBinaria(car[i]);
-			}
+		System.out.println("|\n| Select Sort");
+		SelectSort(vet);
+		LoopBB(vet);
 		break;
 	}
-	printa();
+	printa(vet);
 	ExibirResultado();
-	
-		
 	}
+	private void LoopBS(int[] vet) {
+		for(int i = 0; i < tam; i++) {
+		BuscaSequencial(vet, car[i]);
+		}
+	}
+
 	//Cartela do jogador
 	//Ferramenta principal
 	public void Cartela() {
@@ -70,7 +62,7 @@ public class Jogador{ // teste retirando extends main
 		for(int i = 0; i < tam; i++) {
 				car[i] = r.nextInt(100);
 				for(int a = 0; a < i; a++) {
-				if(vet[i] == vet[a]) {
+				if(car[i] == car[a]) {
 					i--;
 					break;
 				}
@@ -92,10 +84,10 @@ public class Jogador{ // teste retirando extends main
 	
 	public void ExibirResultado() {
 		System.out.println("\n|");
-		System.out.println("| Contador = " + count);
 		ExibirCartela();
+		System.out.println("| Contador = " + count);
 		
-		System.out.println("| Quantidade de números não encontrados: "+ nF);
+		System.out.print("| Quantidade de números não encontrados: "+ nF);
 
 		System.out.print("|\n| Números não encontrados:");
 		System.out.print("\n| ");
@@ -106,11 +98,10 @@ public class Jogador{ // teste retirando extends main
 		System.out.print(notFound[a]);
 		}
 		
-		System.out.print(" |");
 		}
 	
 	//Busca temporaria, precisa da sequencial e da binária
-	public void BuscaSequencial(int x) {
+	public void BuscaSequencial(int[] vet, int x) {
 		for(int i = 0; i< vet.length;i++) {
 			count++;
 			if(x == vet[i]) {
@@ -125,7 +116,12 @@ public class Jogador{ // teste retirando extends main
 		//Coloca no vetor de não encontrados e aumenta a posição que será usada pelo próximo
 	}
 	
-	public void BuscaBinaria(int x) {
+	void LoopBB(int[] vet) {
+		for(int i = 0; i < tam; i++) {
+			BuscaBinaria(vet,car[i]);
+			}
+	}
+	public void BuscaBinaria(int[] vet,int x) {
 		int low = 0;
 		int high = vet.length-1;
 		while(low <= high){
@@ -148,7 +144,7 @@ public class Jogador{ // teste retirando extends main
 			
 	}
 	
-	public void ShellSort() {
+	public void ShellSort(int[] vet) {
 		int h = 1;
 		while(h < vet.length) {
 			h = h * 3 + 1;
@@ -178,7 +174,7 @@ public class Jogador{ // teste retirando extends main
 	
 	}
 	
-	public void SelectSort() {
+	public void SelectSort(int[] vet) {
 		for (int i = 0; i < vet.length - 1; i++){
 			int a = i;
 			for(int j = i + 1; j < vet.length; j++){
@@ -193,8 +189,8 @@ public class Jogador{ // teste retirando extends main
 		
 	}
 	
-	public int particao(int vet[], int low, int high) { //Tava no documento do paulos ed
-		int pivot = vet[high]; // ponto chave
+	public int QSparticao(int vet[], int low, int high) { // Tava no documento do paulos ed
+		int pivot = vet[high]; // Ponto chave
 		int i = (low -1);
 		
 		for(int j = low; j < high; j++) {
@@ -216,7 +212,7 @@ public class Jogador{ // teste retirando extends main
 		if(low < high) {
 			/* pi é o índice da partição, 
             arr[pi] é agora o lado direito */
-			int pi = particao(vet, low, high);
+			int pi = QSparticao(vet, low, high);
 	         // Ordene os elementos recursivamente
             // antes e depois da partição
 			QuickSort(vet, low, pi - 1);
@@ -231,8 +227,8 @@ public class Jogador{ // teste retirando extends main
 		
 	}
 	
-	public void printa() {
-	System.out.print("|\n|\n| Vetor Solução:\n| ");
+	public void printa(int[] vet) {
+	System.out.print("|\n| Vetor Solução:\n| ");
 		for(int i=0;i<vet.length;i++) {
 
 			if(i != 0) {
@@ -240,7 +236,6 @@ public class Jogador{ // teste retirando extends main
 			}
 				System.out.print(vet[i]);	
 	}
-		System.out.print("\n|");
 }
 	
 

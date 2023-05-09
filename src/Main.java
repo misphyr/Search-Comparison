@@ -13,31 +13,43 @@ public class Main {
 	//O primeiro apostador a preencher todos os números, ganha
 	//Os números do vetor solução não usados nas cartelas devem ser mostrados
 	
-	public static int[] vet = new int[100];
-
+	protected static int[] vet = new int[100];
+	
 	public static void main(String[] args) {
+		int[] jog = new int[100];
 		//método para preencher o vetor com random's
 		preencheVetorResultado();
-		
+		PassaValor(jog);
 		// Jogador(int[] vet, int x)
 		// vet = vetor solução
 		// x = Tipo de Sort:
 		// 1 = Quick / 2 = Shell / 3 = Select //
 		
-		int[] teste = new int[100]; // Criando e instanciando um vetor novo
-		teste = vet; 
 		System.out.print("|\n|------------------------------------------------");
 		System.out.println("\n| Primeira Cartela:");
-		Jogador j1 = new Jogador(teste,1); // utilizando o quicksort para jogador 1
+		Jogador j1 = new Jogador(jog,1); // utilizando o quicksort para jogador 1
 		
+		PassaValor(jog);
 		System.out.print("\n|\n|------------------------------------------------");
 		System.out.println("\n| Segunda Cartela:");
-		Jogador j2 = new Jogador(teste,1); // utilizando o quicksort para jogador 2
-//		
-//		Jogador j3 = new Jogador(vet);
-//		
-//		Jogador j4 = new Jogador(vet);
-	}
+		Jogador j2 = new Jogador(jog,2); // utilizando o quicksort para jogador 2
+		
+		PassaValor(jog);
+		System.out.print("\n|\n|------------------------------------------------");
+		System.out.println("\n| Terceira Cartela:");
+		Jogador j3 = new Jogador(jog,3);
+		
+		PassaValor(jog);
+		System.out.print("\n|\n|------------------------------------------------");
+		System.out.println("\n| Quarta Cartela:");		
+		Jogador j4 = new Jogador(jog,1);
+		}
+
+	 static void PassaValor(int[] jog) {
+			for(int i=0;i<vet.length;i++) {
+				jog[i] = vet[i];
+			}
+			}
 
 	static void preencheVetorResultado() {
 		Random r = new Random();
