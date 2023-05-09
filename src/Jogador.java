@@ -45,6 +45,8 @@ import java.util.Random;
 		LoopBB(vet);
 		break;
 	}
+
+	NEncontrados(vet);
 	printa(vet);
 	ExibirResultado();
 	}
@@ -88,7 +90,7 @@ import java.util.Random;
 		System.out.println("| Contador = " + count);
 		
 		System.out.print("| Quantidade de números não encontrados: "+ nF);
-
+		
 		System.out.print("|\n| Números não encontrados:");
 		System.out.print("\n| ");
 		for(int a = 0;a < nF && nF > 0;a++) {
@@ -111,11 +113,21 @@ import java.util.Random;
 			}
 		}
 		//Valor não encontrado
-		notFound[nF] = x;
-		nF++;
 		//Coloca no vetor de não encontrados e aumenta a posição que será usada pelo próximo
 	}
 	
+	private void NEncontrados(int[] vet) {
+
+		for(int i = 0 ; i< vet.length; i++) {
+			for(int a = 0 ; a < vet.length; a++) {
+					if(vet[i] != car[a]) {
+						notFound[nF] = vet[i];
+						nF++;;
+					}
+			}
+		}
+		
+	}
 	void LoopBB(int[] vet) {
 		for(int i = 0; i < tam; i++) {
 			BuscaBinaria(vet,car[i]);
@@ -138,8 +150,7 @@ import java.util.Random;
 			}
 		}
 		//caso saia é o número não encontrado
-		notFound[nF] = x;
-		nF++;
+		
 		return;
 			
 	}
