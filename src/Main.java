@@ -23,13 +23,16 @@ public class Main {
 		// vet = vetor solução
 		// x = Tipo de Sort:
 		// 1 = Quick / 2 = Shell / 3 = Select //
+		
+		int[] teste = new int[100]; // Criando e instanciando um vetor novo
+		teste = vet; 
 		System.out.print("|\n|------------------------------------------------");
 		System.out.println("\n| Primeira Cartela:");
-		Jogador j1 = new Jogador(vet,2);
+		Jogador j1 = new Jogador(teste,1); // utilizando o quicksort para jogador 1
 		
 		System.out.print("\n|\n|------------------------------------------------");
 		System.out.println("\n| Segunda Cartela:");
-		Jogador j2 = new Jogador(vet,3);
+		Jogador j2 = new Jogador(teste,1); // utilizando o quicksort para jogador 2
 //		
 //		Jogador j3 = new Jogador(vet);
 //		

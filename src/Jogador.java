@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Jogador extends Main{
+public class Jogador{ // teste retirando extends main 	
 	
 	//tamanho da cartela
 	private int tam = 5;
@@ -33,7 +33,7 @@ public class Jogador extends Main{
 				+ "\n| Busca binária:");
 	switch(x) {
 	case 1:
-		QuickSort();	
+		QuickSort(car, 0, car.length - 1);	// Recebe cartela, 0 (low), tamanho do vetor - 1 (high) ((-1 por conta da recursão))
 		for(int i = 0; i < tam; i++) {
 		BuscaBinaria(car[i]);
 		}
@@ -51,7 +51,7 @@ public class Jogador extends Main{
 			}
 		break;
 	case 4:
-		QuickSort();
+		QuickSort(car, 0, car.length - 1);
 		for(int i = 0; i < tam; i++) {
 			BuscaBinaria(car[i]);
 			}
@@ -193,8 +193,35 @@ public class Jogador extends Main{
 		
 	}
 	
-	public void QuickSort() {
+	public int particao(int vet[], int low, int high) { //Tava no documento do paulos ed
+		int pivot = vet[high]; // ponto chave
+		int i = (low -1);
 		
+		for(int j = low; j < high; j++) {
+			if(vet[j] <= pivot) {
+				i++;
+				int aux = vet[i];
+				vet[i] = vet[j];
+				vet[j] = aux;
+			}
+		}
+		
+		int temp = vet[i + 1];
+		vet[i+1] = vet[high];
+		vet[high] = temp;
+		return i+1;
+	}
+	
+	void QuickSort(int vet[], int low, int high) { 
+		if(low < high) {
+			/* pi é o índice da partição, 
+            arr[pi] é agora o lado direito */
+			int pi = particao(vet, low, high);
+	         // Ordene os elementos recursivamente
+            // antes e depois da partição
+			QuickSort(vet, low, pi - 1);
+			QuickSort(vet, pi+1,high);
+		}
 	}
 	
 	void Reset() {
