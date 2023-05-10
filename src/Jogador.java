@@ -1,6 +1,6 @@
 import java.util.Random;
 
- class Jogador{ // teste retirando extends main 	
+ class Jogador{ // teste 	
 	
 	//tamanho da cartela
 	private int tam = 5;
