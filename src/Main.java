@@ -12,11 +12,11 @@ public class Main {
 	//Terá um contador em cada busca
 	//O primeiro apostador a preencher todos os números, ganha
 	//Os números do vetor solução não usados nas cartelas devem ser mostrados
-	
-	protected static int[] vet = new int[100];
+	public static int tamVet = 100;
+	protected static int[] vet = new int[tamVet];
 	
 	public static void main(String[] args) {
-		int[] jog = new int[100];
+		int[] jog = new int[tamVet];
 		//método para preencher o vetor com random's
 		preencheVetorResultado();
 		PassaValor(jog);
@@ -54,7 +54,7 @@ public class Main {
 	static void preencheVetorResultado() {
 		Random r = new Random();
 		for(int i=0;i<vet.length;i++) {
-			vet[i] = r.nextInt(100);
+			vet[i] = r.nextInt(tamVet);
 			for(int a = 0; a < i; a++) {
 				if(vet[i] == vet[a]) {
 					i--;

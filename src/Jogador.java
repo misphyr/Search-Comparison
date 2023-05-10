@@ -7,7 +7,7 @@ import java.util.Random;
 	//vetor da cartela do jogador
 	private int[] car = new int[tam];	
 	//vetor dos nºs não encontrados
-	private int[] notFound = new int[100]; 
+	private int[] notFound = new int[Main.tamVet]; 
 	//forma de navegar no vetor dos não encontrados
 	private int nF = 0;
 	//Contador de interações
@@ -20,6 +20,8 @@ import java.util.Random;
 		count = 0;
 		System.out.println("|------------------------------------------------\n|"
 				+ "\n| Busca sequencial:");
+
+		NEncontrados(vet);
 		printa(vet);
 
 		LoopBS(vet);
@@ -118,13 +120,19 @@ import java.util.Random;
 	
 	private void NEncontrados(int[] vet) {
 
-		for(int i = 0 ; i< vet.length; i++) {
-			for(int a = 0 ; a < vet.length; a++) {
-					if(vet[i] != car[a]) {
-						notFound[nF] = vet[i];
-						nF++;;
+		boolean temNoVetor = false;
+		for(int a = 0 ; a < vet.length - 1; a++) {
+			for(int i = 0 ; i < car.length - 1; i++) {
+					if(vet[a] == car[i]) {
+					temNoVetor = true;;
 					}
 			}
+			if(temNoVetor == false) {
+			notFound[nF] = vet[a];
+			nF++;
+			
+			}
+			temNoVetor = false;
 		}
 		
 	}
