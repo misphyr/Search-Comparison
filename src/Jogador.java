@@ -20,52 +20,29 @@ import java.util.Random;
 		Cartela c = new Cartela();
 		
 		//Busca Sequêncial
-		BuscaS();
+		BuscaS(c.car);
 		
 		//Busca binária
-		BuscaB();
+		BuscaB(c.car);
 
 		//Exibe tudo que precisa
-		ExibirResultado();
+		ExibirResultado(c.car);
 	
 
 	}
-	
-	private void BuscaB() {
-		System.out.println("\n|------------------------------------------------\n|"
-				+ "\n| Busca binária:");
-		
-		switch(sort) {
-		case 1:
-			System.out.println("|\n| Quick Sort");
-			QuickSort(vet,0, vet.length - 1);	
-			LoopBB(vet);
-			break;
-		case 2:
-			System.out.println("|\n| Shell Sort");
-			ShellSort();
-			LoopBB();
-			break;
-		case 3:
-			System.out.println("|\n| Select Sort");
-			SelectSort();
-			LoopBB();
-			break;
-		default:
-			break;
-		}
+
+	private void ExibirResultado(int[] car) {
+		System.out.print("Contador Sequencial: " + cS);
+		System.out.print("Contador Binário: " + cB);
 	}
-	private void BuscaS() {
+	private void BuscaS(int[] car) {
 		System.out.println("|------------------------------------------------\n|"
 				+ "\n| Busca sequencial:");
-		
-	}
-
-	private void LoopBS(int[] car) {
-		for(int i = 0; i < car.length; i++) {
-			for(int i = 0; i< res.length;i++) {
+		//
+		for(int i = 0; i < res.length; i++) {
+			for(int a = 0; a < car.length;a++) {
 				cS++;
-				if(res[i] == car[i]) {
+				if(res[i] == car[a]) {
 			//Valor encontrado
 					
 					break;
@@ -73,51 +50,20 @@ import java.util.Random;
 		}
 			
 	}
-		}
-	private void LoopBB(int[] car) {
-		for(int i = 0; i < car.length; i++) {
-			BuscaBinaria(vet,car[i]);
-		}
+		//Valor não encontrado
 	}
 
+
 	
-	
-	//função que printa a cartela
-	public void ExibirCartela() {
-		System.out.print("| Cartela:\n| ");
-		for(int i = 0; i < tam; i++) {
-			if(i != 0) {
-				System.out.print(" | ");
-			}
-			System.out.print(car[i]);
-		}
-		System.out.print(" |\n|\n");;
-	}
-	
-	public void ExibirResultado() {
-		System.out.println("\n|");
-		System.out.println("| CS  = " + cS + "\n| CB" + cB);
+
+	private void BuscaB(int[] car) {
+		System.out.println("\n|------------------------------------------------\n|"
+				+ "\n| Busca binária:");
 		
-//		System.out.print("| Quantidade de números não encontrados: "+ nF);
-//		
-//		System.out.print("|\n| Números não encontrados:");
-//		System.out.print("\n| ");
-//		for(int a = 0;a < nF && nF > 0;a++) {
-//			if(a != 0) {
-//			System.out.print(" | ");
-//			}
-//		System.out.print(notFound[a]);
-//		}
-		System.out.print("\n| ");
-		
+		ordenador();
+		for(int i = 0; i < res.length; i++) {
+			BuscaBinaria(car,res[i]);
 		}
-	
-	//Busca temporaria, precisa da sequencial e da binária
-	public void BuscaSequencial(int[] car, int x) {
-		
-		}
-		//Valor não encontrado
-		//Coloca no vetor de não encontrados e aumenta a posição que será usada pelo próximo
 	}
 	
 	
@@ -141,6 +87,24 @@ import java.util.Random;
 		
 		return;
 			
+	}
+
+	private void ordenador() {
+
+		switch(sort) {
+		case 1:
+			QuickSort(res,0, res.length - 1);	
+			break;
+		case 2:
+			ShellSort(res);
+			break;
+		case 3:
+			SelectSort(res);
+			break;
+		default:
+			break;
+		}
+		
 	}
 	
 	public void ShellSort(int[] vet) {

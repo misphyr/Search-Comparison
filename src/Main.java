@@ -19,12 +19,6 @@ public class Main {
 		
 	}
 
-	 static void PassaValor(int[] jog) {
-			for(int i=0;i<vet.length;i++) {
-				jog[i] = vet[i];
-			}
-			}
-
 	}
 
 

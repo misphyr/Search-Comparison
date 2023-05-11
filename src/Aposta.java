@@ -18,10 +18,10 @@ public class Aposta {
 		// x = Tipo de Sort:
 		// 1 = Quick / 2 = Shell / 3 = Select //
 
-		Jogador j1 = new Jogador();
-		Jogador j2 = new Jogador();
-		Jogador j3 = new Jogador();
-		Jogador j4 = new Jogador();
+		Jogador j1 = new Jogador(1);
+//		Jogador j2 = new Jogador(2);
+//		Jogador j3 = new Jogador(3);
+//		Jogador j4 = new Jogador(1);
 	}
 	
 	private void preencheResultado() {
