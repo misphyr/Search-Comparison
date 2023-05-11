@@ -1,9 +1,9 @@
 import java.util.Random;
 
-public class Aposta {
+public class Aposta extends Main {
 
 
-	protected static int tamRes = 100;
+	protected static int tamRes = 10;
 	protected static int[] res = new int[tamRes];
 	
 	Aposta() {
@@ -26,7 +26,7 @@ public class Aposta {
 	
 	private void preencheResultado() {
 		Random r = new Random();
-		for(int i=0;i<res.length;i++) {
+		for(int i=0;i<res.length-1;i++) {
 			res[i] = r.nextInt(tamRes);
 			for(int a = 0; a < i; a++) {
 				if(res[i] == res[a]) {

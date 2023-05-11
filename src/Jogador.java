@@ -9,6 +9,10 @@ import java.util.Random;
 	private int cS=0;
 	private int cB=0;
 	private int sort = 0;
+
+
+	//Nova Cartela
+	Cartela c = new Cartela();
 	
 	Jogador(int sort) {
 		this.sort = sort;
@@ -16,17 +20,15 @@ import java.util.Random;
 	
 	public void Tudo() {
 
-		//Nova Cartela
-		Cartela c = new Cartela();
 		
 		//Busca Sequêncial
-		BuscaS(c.car);
+		//BuscaS(c.car);
 		
 		//Busca binária
-		BuscaB(c.car);
+		//BuscaB(c.car);
 
 		//Exibe tudo que precisa
-		ExibirResultado(c.car);
+		//ExibirResultado(c.car);
 	
 
 	}
