@@ -1,14 +1,14 @@
 import java.util.Random;
 
- class Jogador extends Aposta
+ class Jogador
  {	
 	
 	
 	
 	//Contador de interações
-	private int cS=0;
-	private int cB=0;
-	private int sort = 0;
+	public int cS=0;
+	public int cB=0;
+	public int sort = 0;
 
 
 	//Nova Cartela
@@ -16,35 +16,29 @@ import java.util.Random;
 	
 	Jogador(int sort) {
 		this.sort = sort;
+		
 	}
 	
 	public void Tudo() {
 
 		
 		//Busca Sequêncial
-		//BuscaS(c.car);
+		BuscaS(c.car);
 		
 		//Busca binária
-		//BuscaB(c.car);
-
-		//Exibe tudo que precisa
-		//ExibirResultado(c.car);
+		BuscaB(c.car);
 	
 
 	}
 
-	private void ExibirResultado(int[] car) {
-		System.out.print("Contador Sequencial: " + cS);
-		System.out.print("Contador Binário: " + cB);
-	}
+
+	
 	private void BuscaS(int[] car) {
-		System.out.println("|------------------------------------------------\n|"
-				+ "\n| Busca sequencial:");
-		//
-		for(int i = 0; i < res.length; i++) {
+	
+		for(int i = 0; i < Aposta.res.length; i++) {
 			for(int a = 0; a < car.length;a++) {
 				cS++;
-				if(res[i] == car[a]) {
+				if(Aposta.res[i] == car[a]) {
 			//Valor encontrado
 					
 					break;
@@ -59,12 +53,10 @@ import java.util.Random;
 	
 
 	private void BuscaB(int[] car) {
-		System.out.println("\n|------------------------------------------------\n|"
-				+ "\n| Busca binária:");
 		
 		ordenador();
-		for(int i = 0; i < res.length; i++) {
-			BuscaBinaria(car,res[i]);
+		for(int i = 0; i < Aposta.res.length; i++) {
+			BuscaBinaria(car,Aposta.res[i]);
 		}
 	}
 	
@@ -95,13 +87,13 @@ import java.util.Random;
 
 		switch(sort) {
 		case 1:
-			QuickSort(res,0, res.length - 1);	
+			QuickSort(Aposta.res,0, Aposta.res.length - 1);	
 			break;
 		case 2:
-			ShellSort(res);
+			ShellSort(Aposta.res);
 			break;
 		case 3:
-			SelectSort(res);
+			SelectSort(Aposta.res);
 			break;
 		default:
 			break;
