@@ -1,11 +1,11 @@
-import java.util.Arrays;
 import java.util.Random;
 
 public class Aposta {
 
-
+	public final static int Limite = 100;
 	protected static int tamRes = 10;
 	protected static int[] res = new int[tamRes];
+	
 	private final int QNTJ = 4;
 	private int[][] notFound = new int[QNTJ][tamRes];
 	
@@ -33,7 +33,7 @@ public class Aposta {
 	private void preencheResultado() {
 		Random r = new Random();
 		for(int i=0;i<res.length-1;i++) {
-			res[i] = r.nextInt(tamRes);
+			res[i] = r.nextInt(Limite);
 			for(int a = 0; a < i; a++) {
 				if(res[i] == res[a]) {
 					i--;
@@ -82,12 +82,17 @@ public class Aposta {
 			temNoVetor = false;
 		}
 	}
+	
 	private void exibeNaoEncontrados(Jogador J,int index) {
+		int c =0;
 		System.out.print("| Não foram encontrados na cartela:\n| ");
 		for(int a = 0 ; a < notFound[index].length - 1; a++) {
-				System.out.print(notFound[index][a] + " |");
+			if(!(notFound[index][a] == 0)) {
+				System.out.print(notFound[index][a] + "|");
+				c++;
+			}
 		}
-
+		 System.out.print("\n| " + c + " números.\n");
 	}
 	
 	private void exibeTudo(Jogador J, int i) {
