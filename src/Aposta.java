@@ -3,17 +3,16 @@ import java.util.Random;
 public class Aposta {
 
 	public final static int Limite = 100;
-	protected static int tamRes = 10;
+	protected static int tamRes = 100;
 	protected static int[] res = new int[tamRes];
 	
 	private final int QNTJ = 4;
 	private int[][] notFound = new int[QNTJ][tamRes];
 	
 	Aposta() {
+		
 		preencheResultado();
 		adicionaJogadores();
-		
-	
 	}
 	
 	private void adicionaJogadores() {
@@ -28,6 +27,8 @@ public class Aposta {
 		pegaNaoEncontrados(j[i],i);
 		exibeTudo(j[i] ,i);
 		}
+		
+		vencedor(j);
 	}
 	
 	private void preencheResultado() {
@@ -53,8 +54,8 @@ public class Aposta {
 	public void exibeInformacoes(Jogador J, int i ) {
 		i++;
 		System.out.print("| Jogador " + i + "\n"  
-					   + "| Contador BS: " + J.cB + "\n" 
-					   + "| Contador BB: " + J.cS + "\n");
+					   + "| Contador BS: " + J.cS + "\n" 
+					   + "| Contador BB: " + J.cB + "\n");
 		
 	}
 	
@@ -69,6 +70,11 @@ public class Aposta {
 	
 	private void pegaNaoEncontrados(Jogador J, int index) {
 		boolean temNoVetor = false;
+		
+		for(int a = 0 ; a < notFound[index].length - 1; a++) {
+			notFound[index][a] = -1;
+		}
+		
 		for(int a = 0 ; a < res.length - 1; a++) {
 			for(int i = 0 ; i < J.c.car.length - 1; i++) {
 					if(res[a] == J.c.car[i]) {
@@ -85,9 +91,10 @@ public class Aposta {
 	
 	private void exibeNaoEncontrados(Jogador J,int index) {
 		int c =0;
+		
 		System.out.print("| Não foram encontrados na cartela:\n| ");
 		for(int a = 0 ; a < notFound[index].length - 1; a++) {
-			if(!(notFound[index][a] == 0)) {
+			if(!(notFound[index][a] == -1)) {
 				System.out.print(notFound[index][a] + "|");
 				c++;
 			}
@@ -104,5 +111,14 @@ public class Aposta {
 		System.out.print("\n| -------------------------------------\n");
 	}
 
+	private void vencedor(Jogador[] J) {
+		int menor = 1;
+		for(int i = 1; i <= J.length; i++) {
+			if(J[i-1].cB < J[menor].cB) {
+				menor = i - 1;
+			}
+		}
+		System.out.print("O vencedor é o Jogador " + (menor+1));
+	}
 	
 }
