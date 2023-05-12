@@ -1,4 +1,3 @@
-import java.util.Random;
 
 public class Main {
 
@@ -14,7 +13,7 @@ public class Main {
 	//[v] Os números do vetor solução não usados nas cartelas devem ser mostrados
 	
 	public static void main(String[] args) {
-		Aposta a = new Aposta();
+		new Aposta();
 		
 	}
 
