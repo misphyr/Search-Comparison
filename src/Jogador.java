@@ -1,151 +1,71 @@
 import java.util.Random;
 
- class Jogador{ // teste retirando extends main 	
+ class Jogador
+ {	
 	
-	//tamanho da cartela
-	private int tam = 5;
-	//vetor da cartela do jogador
-	private int[] car = new int[tam];	
-	//vetor dos nºs não encontrados
-	private int[] notFound = new int[Main.tamVet]; 
-	//forma de navegar no vetor dos não encontrados
-	private int nF = 0;
+	
+	
 	//Contador de interações
-	private int count=0;
+	public int cS=0;
+	public int cB=0;
+	public int sort = 0;
+
+
+	//Nova Cartela
+	Cartela c = new Cartela();
 	
+	Jogador(int sort) {
+		this.sort = sort;
+		
+	}
 	
-	Jogador(int[] vet,int x) {
-		
-		Cartela();
-		count = 0;
-		System.out.println("|------------------------------------------------\n|"
-				+ "\n| Busca sequencial:");
+	public void Tudo() {
 
-		NEncontrados(vet);
-		printa(vet);
-
-		LoopBS(vet);
-		ExibirResultado();
 		
-		Reset();
-		System.out.println("\n|------------------------------------------------\n|"
-				+ "\n| Busca binária:");
-	switch(x) {
-	case 1:
-		System.out.println("|\n| Quick Sort");
-		QuickSort(vet,0, vet.length - 1);	// Recebe cartela, 0 (low), tamanho do vetor - 1 (high) ((-1 por conta da recursão))
-		LoopBB(vet);
-		break;
-	case 2:
-		System.out.println("|\n| Shell Sort");
-		ShellSort(vet);
-		LoopBB(vet);
-		break;
-	case 3:
-		System.out.println("|\n| Select Sort");
-		SelectSort(vet);
-		LoopBB(vet);
-		break;
+		//Busca Sequêncial
+		BuscaS(c.car);
+		
+		//Busca binária
+		BuscaB(c.car);
+	
+
 	}
 
-	NEncontrados(vet);
-	printa(vet);
-	ExibirResultado();
-	}
-	private void LoopBS(int[] vet) {
-		for(int i = 0; i < tam; i++) {
-		BuscaSequencial(vet, car[i]);
-		}
-	}
 
-	//Cartela do jogador
-	//Ferramenta principal
-	public void Cartela() {
-		Random r = new Random();
-		
-		for(int i = 0; i < tam; i++) {
-				car[i] = r.nextInt(100);
-				for(int a = 0; a < i; a++) {
-				if(car[i] == car[a]) {
-					i--;
+	
+	private void BuscaS(int[] car) {
+	
+		for(int i = 0; i < Aposta.res.length; i++) {
+			for(int a = 0; a < car.length;a++) {
+				cS++;
+				if(Aposta.res[i] == car[a]) {
+			//Valor encontrado
+					
 					break;
 				}
-			}
 		}
-	}
-	
-	//função que printa a cartela
-	public void ExibirCartela() {
-		System.out.print("| Cartela:\n| ");
-		for(int i = 0; i < tam; i++) {
-			if(i != 0) {
-				System.out.print(" | ");
-			}
-			System.out.print(car[i]);
-		}
-		System.out.print(" |\n|\n");;
-	}
-	
-	public void ExibirResultado() {
-		System.out.println("\n|");
-		ExibirCartela();
-		System.out.println("| Contador = " + count);
-		
-		System.out.print("| Quantidade de números não encontrados: "+ nF);
-		
-		System.out.print("|\n| Números não encontrados:");
-		System.out.print("\n| ");
-		for(int a = 0;a < nF && nF > 0;a++) {
-			if(a != 0) {
-			System.out.print(" | ");
-			}
-		System.out.print(notFound[a]);
-		}
-		
-		}
-	
-	//Busca temporaria, precisa da sequencial e da binária
-	public void BuscaSequencial(int[] vet, int x) {
-		for(int i = 0; i< vet.length;i++) {
-			count++;
-			if(x == vet[i]) {
-		//Valor encontrado
-				
-				return;
-			}
-		}
-		//Valor não encontrado
-		//Coloca no vetor de não encontrados e aumenta a posição que será usada pelo próximo
-	}
-	
-	private void NEncontrados(int[] vet) {
-
-		boolean temNoVetor = false;
-		for(int a = 0 ; a < vet.length - 1; a++) {
-			for(int i = 0 ; i < car.length - 1; i++) {
-					if(vet[a] == car[i]) {
-					temNoVetor = true;;
-					}
-			}
-			if(temNoVetor == false) {
-			notFound[nF] = vet[a];
-			nF++;
 			
-			}
-			temNoVetor = false;
-		}
+	}
+		//Valor não encontrado
+	}
+
+
+	
+
+	private void BuscaB(int[] car) {
 		
+		ordenador();
+		for(int i = 0; i < Aposta.res.length; i++) {
+			BuscaBinaria(car,Aposta.res[i]);
+		}
 	}
-	void LoopBB(int[] vet) {
-		for(int i = 0; i < tam; i++) {
-			BuscaBinaria(vet,car[i]);
-			}
-	}
+	
+	
 	public void BuscaBinaria(int[] vet,int x) {
 		int low = 0;
 		int high = vet.length-1;
 		while(low <= high){
-			count++;
+			cB++;
 			int medium = (high + low) / 2;
 			if(x > vet[medium] ) {
 				low = medium + 1;
@@ -162,6 +82,24 @@ import java.util.Random;
 		return;
 			
 	}
+
+	private void ordenador() {
+
+		switch(sort) {
+		case 1:
+			QuickSort(Aposta.res,0, Aposta.res.length - 1);	
+			break;
+		case 2:
+			ShellSort(Aposta.res);
+			break;
+		case 3:
+			SelectSort(Aposta.res);
+			break;
+		default:
+			break;
+		}
+		
+	}
 	
 	public void ShellSort(int[] vet) {
 		int h = 1;
@@ -176,7 +114,7 @@ import java.util.Random;
 			for(int i = h; i < vet.length; i++) {
 				c = vet[i];
 				j = i;
-				count++;
+				cB++;
 				while(j >= h && vet[j - h] > c) {
 			
 					vet[j] = vet[j - h];
@@ -239,23 +177,7 @@ import java.util.Random;
 		}
 	}
 	
-	void Reset() {
-		this.count = 0;
-		this.nF = 0 ;
-		this.notFound = new int[100];
-		
-	}
-	
-	public void printa(int[] vet) {
-	System.out.print("|\n| Vetor Solução:\n| ");
-		for(int i=0;i<vet.length;i++) {
 
-			if(i != 0) {
-				System.out.print(" | ");
-			}
-				System.out.print(vet[i]);	
-	}
-}
 	
 
 }
