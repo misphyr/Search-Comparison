@@ -13,8 +13,9 @@ public class Main {
 	//[v] Os números do vetor solução não usados nas cartelas devem ser mostrados
 	
 	public static void main(String[] args) {
-		new Aposta();
 		
+		Interface i = new Interface();
+		i.start();
 	}
 
 	}
