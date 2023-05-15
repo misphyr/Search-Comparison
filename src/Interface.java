@@ -22,10 +22,11 @@ public class Interface extends Canvas implements Runnable{
 	
 	private boolean isRunning;
 	private BufferedImage image;
-	private Aposta a = new Aposta();
+
+	private Aposta a;
 	
-	public Interface(){
-		
+	public Interface(Aposta a){
+		this.a = a;
 		setPreferredSize(d);
 		initFrame();
 		image = new BufferedImage(WIDTH,HEIGH,BufferedImage.TYPE_INT_RGB);
