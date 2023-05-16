@@ -18,26 +18,26 @@
 		
 	}
 	
-	public void Tudo() {
+	public void Buscas(int[] res) {
 
 		
 		//Busca Sequêncial
-		BuscaS(c.car);
+		BuscaS(c.car, res);
 		
 		//Busca binária
-		BuscaB(c.car);
+		BuscaB(c.car, res);
 	
 
 	}
 
 
 	
-	private void BuscaS(int[] car) {
+	private void BuscaS(int[] car,int[] res) {
 	
-		for(int i = 0; i < Aposta.res.length; i++) {
+		for(int i = 0; i < res.length; i++) {
 			for(int a = 0; a < car.length;a++) {
 				cS++;
-				if(Aposta.res[i] == car[a]) {
+				if(res[i] == car[a]) {
 			//Valor encontrado
 					
 					break;
@@ -51,12 +51,13 @@
 
 	
 
-	private void BuscaB(int[] car) {
+	private void BuscaB(int[] car, int[] res) {
 		
-		ordenador();
-		for(int i = 0; i < Aposta.res.length; i++) {
-			BuscaBinaria(car,Aposta.res[i]);
+		ordenador(res);
+		for(int i = 0; i < res.length; i++) {
+			BuscaBinaria(car,res[i]);
 		}
+		
 	}
 	
 	
@@ -82,17 +83,17 @@
 			
 	}
 
-	private void ordenador() {
+	private void ordenador(int[] res) {
 
 		switch(sort) {
 		case 1:
-			QuickSort(Aposta.res,0, Aposta.res.length - 1);	
+			QuickSort(res,0, res.length - 1);	
 			break;
 		case 2:
-			ShellSort(Aposta.res);
+			ShellSort(res);
 			break;
 		case 3:
-			SelectSort(Aposta.res);
+			SelectSort(res);
 			break;
 		default:
 			break;
