@@ -42,7 +42,7 @@ public class Aposta {
 	private void replaces(int[] sub) {
 		for(int a=0;a<res.length-1;a++) {
 			sub[a] = res[a];
-	}
+		}
 	}
 
 	private void preencheResultado() {
@@ -60,7 +60,6 @@ public class Aposta {
 		for(int i=0;i<res.length-1;i++) {
 			sub[i] = res[i];
 		}
-		
 	}
 	
 	private String exibeResultado() {
