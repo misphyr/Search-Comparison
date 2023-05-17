@@ -33,18 +33,21 @@
 
 	
 	private void BuscaS(int[] car,int[] res) {
-	
+		int cSBackup = -1;
+	//Tenho que ter um jeito de Mandar o cS na vez que o último número da cartela seja encontrado (não a última posição do vetor)
 		for(int i = 0; i < res.length; i++) {
 			for(int a = 0; a < car.length;a++) {
 				cS++;
 				if(res[i] == car[a]) {
 			//Valor encontrado
-					
+					cSBackup = cS;
 					break;
 				}
+				
 		}
 			
 	}
+		cS = cSBackup;
 		//Valor não encontrado
 	}
 

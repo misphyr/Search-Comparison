@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
@@ -11,13 +12,27 @@ public class Aposta {
 	protected static int[] sub = new int[tamRes];
 	private final int QNTJ = 4;
 	private int[][] notFound = new int[QNTJ][tamRes];
-	
+	private boolean temArquivo = false;
 	Aposta() {
+		verificaArquivo();
 		
+		if(!temArquivo) {
 		preencheResultado();
 		adicionaJogadores();
+		}
 	}
 	
+	private void verificaArquivo() {
+
+		for(int i =0; i < QNTJ; i++) {
+		File f = new File("Jogador" + (i+1) + ".txt");
+			if(f.isFile()) {
+				temArquivo = true;
+			}
+		}
+		
+	}
+
 	private void adicionaJogadores() {
 		// Jogador(int[] vet, int x)
 		// vet = vetor solução
@@ -64,12 +79,9 @@ public class Aposta {
 	
 	private String exibeResultado() {
 	String resultado = "Resultado:\n";
-	System.out.print("| Vetor Resultado: \n| ");
 	for(int i = 0; i < res.length; i++) {
 		resultado += res[i] + "|";
-		System.out.print(res[i] + "|");;
 	}
-	System.out.print("\n|\n");
 	return resultado;
 	}
 	
@@ -79,21 +91,15 @@ public class Aposta {
 				   + "Contador BS: " + J.cS + "\n" 
 				   + "Contador BB: " + J.cB + "\n";
 		i++;
-		System.out.print("| Jogador " + i + "\n"  
-					   + "| Contador BS: " + J.cS + "\n" 
-					   + "| Contador BB: " + J.cB + "\n");
 		return informacoes;
 		
 	}
 	
 	private String exibeCartelas(Jogador J) {
 		String cartelas = "\nCartela:\n";
-		System.out.print("| Cartela: \n| ");
 		for(int i = 0 ; i < J.c.car.length ; i++){
 		cartelas += J.c.car[i] + "|";
-		System.out.print(J.c.car[i] + "|");
 		}
-		System.out.print("\n");
 		return cartelas;
 	}
 	
@@ -122,23 +128,16 @@ public class Aposta {
 		String naoEncontrados = "\nNão foram encontrados na cartela:\n";
 		int c =0;
 		
-		System.out.print("| Não foram encontrados na cartela:\n| ");
 		for(int a = 0 ; a < notFound[index].length - 1; a++) {
 			if(!(notFound[index][a] == -1)) {
 				naoEncontrados += notFound[index][a] + "|";
-				System.out.print(notFound[index][a] + "|");
 				c++;
 			}
 		}
-		 System.out.print("\n| " + c + " números.\n");
 		 return naoEncontrados;
 	}
 	
 	private void exibeTudo(Jogador J, int i) {
-		exibeResultado();
-		exibeInformacoes(J, i);
-		exibeCartelas(J);	
-		exibeNaoEncontrados(J,i);
 
 		try {
 			
@@ -158,16 +157,30 @@ public class Aposta {
             e.printStackTrace();
         }
 		
-		System.out.print("\n| -------------------------------------\n");
 	}
 
 	private void vencedor(Jogador[] J) {
 		int menor = 1;
 		for(int i = 1; i <= J.length; i++) {
-			if(J[i-1].cB < J[menor].cB) {
+			if(J[i-1].cS < J[menor].cS) {
 				menor = i - 1;
 			}
 		}
+try {
+			
+			String fileName = "resultadoAposta.txt";
+            FileWriter writer = new FileWriter(fileName);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            menor = menor + 1;
+            String vencedor = Integer.toString(menor);
+            bufferedWriter.write("O vencedor é o " + vencedor + "º Jogador");
+            
+            bufferedWriter.newLine();
+ 
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		System.out.print("O vencedor é o Jogador " + (menor+1));
 	}
 	
