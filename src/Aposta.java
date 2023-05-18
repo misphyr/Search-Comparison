@@ -12,7 +12,7 @@ public class Aposta {
 	protected static int[] sub = new int[tamRes];
 	private final int QNTJ = 4;
 	private int[][] notFound = new int[QNTJ][tamRes];
-	private boolean temArquivo = false;
+	public boolean temArquivo = false;
 	Aposta() {
 		verificaArquivo();
 		

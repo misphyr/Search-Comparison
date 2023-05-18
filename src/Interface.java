@@ -119,4 +119,8 @@ public class Interface extends Canvas implements Runnable{
 		}
 		stop();
 	}
+	
+	void teste() {
+		a.temArquivo = true;
+	}
 }
