@@ -10,7 +10,7 @@ public class Aposta {
 	protected static int tamRes = 100;
 	protected static int[] res = new int[tamRes];
 	protected static int[] sub = new int[tamRes];
-	public static final int QNTJ = 4;
+	public static final int QNTJ =4;
 	private int[][] notFound = new int[QNTJ][tamRes];
 	public boolean temArquivo = false;
 	Aposta() {
@@ -126,12 +126,10 @@ public class Aposta {
 	
 	private String exibeNaoEncontrados(Jogador J,int index) {
 		String naoEncontrados = "\nNão foram encontrados na cartela:\n";
-		int c =0;
 		
 		for(int a = 0 ; a < notFound[index].length - 1; a++) {
 			if(!(notFound[index][a] == -1)) {
 				naoEncontrados += notFound[index][a] + "|";
-				c++;
 			}
 		}
 		 return naoEncontrados;
@@ -181,7 +179,6 @@ try {
         } catch (IOException e) {
             e.printStackTrace();
         }
-		System.out.print("O vencedor é o Jogador " + (menor+1));
 	}
 	
 }

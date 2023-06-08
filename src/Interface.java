@@ -43,6 +43,7 @@ public class Interface extends Canvas implements Runnable{
 		frame.add(this);
 		frame.setMinimumSize(d);
 		frame.setResizable(false);
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
@@ -51,7 +52,6 @@ public class Interface extends Canvas implements Runnable{
 		frame.setBackground(Color.LIGHT_GRAY);
 		frame.addKeyListener(Keys);
 
-		System.out.print("Apertando 1");
 		}
 
 	
@@ -73,7 +73,7 @@ public class Interface extends Canvas implements Runnable{
 	}
 
 	public void tick() {
-
+		
 	}
 	
 	int xMargem = 40;
@@ -87,7 +87,7 @@ public class Interface extends Canvas implements Runnable{
 		}
 		Graphics g = image.getGraphics();
 
-		g.setColor(Color.white);
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, WIDTH, HEIGH);
 
 		g.setColor(Color.black);
@@ -98,7 +98,19 @@ public class Interface extends Canvas implements Runnable{
 				 g.setColor(Color.black);
 			    	g.setFont(new Font("Arial", 40,20));
 				 g.drawString(br.readLine(), xMargem ,yMargem );
-	            	
+	            	for(int i = 0; i < Aposta.QNTJ; i++) {
+	            		try (BufferedReader tst = new BufferedReader(new FileReader("Jogador" + (i+1) + ".txt"))) {
+							String line; 
+							while ((line = tst.readLine()) != null) {
+							if(line.startsWith("Contador BS")) {
+								g.drawString("Jogador"+ (i+1) + " :"  + line, xMargem, yMargem + 40 + (20 * i));
+								
+							}else if(line.startsWith("Contador BB")) {
+								g.drawString(line, xMargem + 400, yMargem + 40 + (20 * i));
+							}
+							}
+						}
+	            	}
 			 }
 			 catch(IOException e) {
 					e.printStackTrace();
@@ -111,24 +123,28 @@ public class Interface extends Canvas implements Runnable{
 		            while ((line = br.readLine()) != null) {
 		            	char[] chara = line.toCharArray();
 		            	//Se começar com um número:
-		            	if(line.toCharArray().length > 0 && (line.toCharArray()[0] >= '0' || line.toCharArray()[0] <= '9')) {
+		            	if(line.startsWith("0") || line.startsWith("1") || line.startsWith("2") || line.startsWith("3") || line.startsWith("4") || line.startsWith("5") || line.startsWith("6") || line.startsWith("7") || line.startsWith("8") || line.startsWith("9")) {
 		            		int xchar = 0;
 			            	for(int i = 0; i < chara.length;i++) {
 			            		
 			            		if(chara[i] == '|') {
-			            			chara[i] = '´';
+			            			chara[i] = '-';
 			            		}
-			            		
-			            	g.drawString(String.valueOf(chara[i]), xMargem + (tamLetra * xchar), yMargem + (20 * linha));
+			            		 g.setColor(Color.DARK_GRAY);
+			            			g.setFont(new Font("Arial", 40,16));
+			        					g.drawString(String.valueOf(chara[i]), xMargem + (tamLetra * xchar), yMargem + (20 * linha));
+			            	xchar++;
 			            	if(xchar > 115) {
 			            		linha++;
 			            		xchar=0;
 			            	}
-			            	xchar++;
+			            	
 		            		}
 			            	
 		            	}else {
-		            		g.drawString(line, xMargem, yMargem + (20 * linha));
+		            		 g.setColor(Color.black);
+		            			g.setFont(new Font("Arial", 40,20));
+		        				g.drawString(line, xMargem, yMargem + (20 * linha));
 		            	}
 		            	linha++;
 		            }
@@ -148,7 +164,6 @@ public class Interface extends Canvas implements Runnable{
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
-		int frames = 0;
 		double timer = System.currentTimeMillis();
 		while(isRunning) {
 		long now = 	System.nanoTime();
@@ -157,12 +172,9 @@ public class Interface extends Canvas implements Runnable{
 			if(delta >= 1) {
 				tick();
 				render();
-				frames++;
 				delta--;
 			}
 			if(System.currentTimeMillis() - timer >= 1000) {
-				System.out.println("FPS: " + frames);
-				frames = 0;
 				timer += 1000;
 			}
 			
@@ -179,7 +191,6 @@ class Teclas extends KeyAdapter{
 		
 	@Override
 	public void keyPressed(KeyEvent e) {
-
 		int a = e.getKeyCode();
 		if(a == KeyEvent.VK_RIGHT) {
 			Interface.numJog++;
@@ -200,6 +211,10 @@ class Teclas extends KeyAdapter{
 		}
 		if(a == KeyEvent.VK_2) {
 			System.exit(0);
+		}
+		
+		if(a == KeyEvent.BUTTON1_DOWN_MASK) {
+			System.out.println("Teste");
 		}
 	
 	}

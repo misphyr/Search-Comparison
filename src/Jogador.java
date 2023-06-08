@@ -138,6 +138,7 @@
 		for (int i = 0; i < vet.length - 1; i++){
 			int a = i;
 			for(int j = i + 1; j < vet.length; j++){
+				cB++;
 				if(vet[j] < vet[a]) {
 					a = j;
 					}
@@ -175,6 +176,7 @@
 			int pi = QSparticao(vet, low, high);
 	         // Ordene os elementos recursivamente
             // antes e depois da partição
+			cB++;
 			QuickSort(vet, low, pi - 1);
 			QuickSort(vet, pi+1,high);
 		}
