@@ -10,7 +10,7 @@ public class Aposta {
 	protected static int tamRes = 100;
 	protected static int[] res = new int[tamRes];
 	protected static int[] sub = new int[tamRes];
-	private final int QNTJ = 4;
+	public static final int QNTJ = 4;
 	private int[][] notFound = new int[QNTJ][tamRes];
 	public boolean temArquivo = false;
 	Aposta() {
@@ -33,7 +33,7 @@ public class Aposta {
 		
 	}
 
-	private void adicionaJogadores() {
+	void adicionaJogadores() {
 		// Jogador(int[] vet, int x)
 		// vet = vetor solução
 		// x = Tipo de Sort:
@@ -60,7 +60,7 @@ public class Aposta {
 		}
 	}
 
-	private void preencheResultado() {
+	void preencheResultado() {
 		Random r = new Random();
 		for(int i=0;i<res.length-1;i++) {
 			res[i] = r.nextInt(Limite);
@@ -87,7 +87,7 @@ public class Aposta {
 	
 	public String exibeInformacoes(Jogador J, int i ) {
 		String informacoes = 
-				     "Jogador " + i + "\n"  
+			 "\n"  + "Jogador " + (i+1) + "\n"  
 				   + "Contador BS: " + J.cS + "\n" 
 				   + "Contador BB: " + J.cB + "\n";
 		i++;

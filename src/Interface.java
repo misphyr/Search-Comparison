@@ -3,9 +3,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.text.AttributedCharacterIterator;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 
@@ -15,21 +19,23 @@ public class Interface extends Canvas implements Runnable{
 
 	private Thread thread;
 
-	private final int HEIGH = 400;
-	private final int WIDTH = 800;
+	private final int HEIGH = 720;
+	private final int WIDTH = 1280;
 	private Dimension d = new Dimension(WIDTH,HEIGH);
 	private JFrame frame;
 	
 	private boolean isRunning;
 	private BufferedImage image;
 
-	private Aposta a;
-	
+	private static Teclas Keys = new Teclas();
+	public static Aposta a;
+	public static int numJog = 1;
 	public Interface(Aposta a){
-		this.a = a;
+		Interface.a = a;
 		setPreferredSize(d);
 		initFrame();
 		image = new BufferedImage(WIDTH,HEIGH,BufferedImage.TYPE_INT_RGB);
+         
 	}
 
 	public void initFrame() {
@@ -42,7 +48,10 @@ public class Interface extends Canvas implements Runnable{
 		frame.setLocationRelativeTo(null);
 		frame.pack();
 		frame.isFocused();
-//		frame.addKeyListener(KeyPad);
+		frame.setBackground(Color.LIGHT_GRAY);
+		frame.addKeyListener(Keys);
+
+		System.out.print("Apertando 1");
 		}
 
 	
@@ -67,6 +76,9 @@ public class Interface extends Canvas implements Runnable{
 
 	}
 	
+	int xMargem = 40;
+	int yMargem = 30;
+	int tamLetra = 10;
 	public void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
@@ -74,18 +86,56 @@ public class Interface extends Canvas implements Runnable{
 			return;
 		}
 		Graphics g = image.getGraphics();
-		g.setColor(Color.BLACK);
+
+		g.setColor(Color.white);
 		g.fillRect(0, 0, WIDTH, HEIGH);
 
-		
-		
-		g.setFont(new Font("Arial",Font.PLAIN,12));
-		g.setColor(Color.WHITE);
-		g.drawString("vetorResultado",20,40);
+		g.setColor(Color.black);
+    	g.setFont(new Font("Arial", 40,16));
 
-		for(int i = 0;i < a.res.length; i++) {
-		g.drawString(Integer.toString(a.res[i]),20+(20*i),60);
-		}
+		if(numJog == 0) {
+			 try (BufferedReader br = new BufferedReader(new FileReader("resultadoAposta.txt"))) {
+				 g.setColor(Color.black);
+			    	g.setFont(new Font("Arial", 40,20));
+				 g.drawString(br.readLine(), xMargem ,yMargem );
+	            	
+			 }
+			 catch(IOException e) {
+					e.printStackTrace();
+					}
+		}else {
+				String fileName = "jogador" + numJog + ".txt";
+		        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+					int linha = 0;
+		            String line;
+		            while ((line = br.readLine()) != null) {
+		            	char[] chara = line.toCharArray();
+		            	//Se começar com um número:
+		            	if(line.toCharArray().length > 0 && (line.toCharArray()[0] >= '0' || line.toCharArray()[0] <= '9')) {
+		            		int xchar = 0;
+			            	for(int i = 0; i < chara.length;i++) {
+			            		
+			            		if(chara[i] == '|') {
+			            			chara[i] = '´';
+			            		}
+			            		
+			            	g.drawString(String.valueOf(chara[i]), xMargem + (tamLetra * xchar), yMargem + (20 * linha));
+			            	if(xchar > 115) {
+			            		linha++;
+			            		xchar=0;
+			            	}
+			            	xchar++;
+		            		}
+			            	
+		            	}else {
+		            		g.drawString(line, xMargem, yMargem + (20 * linha));
+		            	}
+		            	linha++;
+		            }
+				} catch (IOException e) {
+				e.printStackTrace();
+			}
+		        }
 		//Fim da render
 		g.dispose();
 		g = bs.getDrawGraphics();
@@ -122,5 +172,35 @@ public class Interface extends Canvas implements Runnable{
 	
 	void teste() {
 		a.temArquivo = true;
+	}
+}
+
+class Teclas extends KeyAdapter{
+		
+	@Override
+	public void keyPressed(KeyEvent e) {
+
+		int a = e.getKeyCode();
+		if(a == KeyEvent.VK_RIGHT) {
+			Interface.numJog++;
+		}
+		if(a == KeyEvent.VK_LEFT) {
+			Interface.numJog--;
+		}
+		if(Interface.numJog > Aposta.QNTJ) {
+			Interface.numJog = Aposta.QNTJ;
+		}
+		if(Interface.numJog < 0) {
+			Interface.numJog = 0;
+		}
+		
+		if(a == KeyEvent.VK_1) {
+			Interface.a.preencheResultado();
+			Interface.a.adicionaJogadores();
+		}
+		if(a == KeyEvent.VK_2) {
+			System.exit(0);
+		}
+	
 	}
 }
