@@ -1,6 +1,6 @@
 Sumary
 -------------------------------------------------
-*There's no input*;
+*There's no input*\n
 Little project with Sequential and Binary search.
 4 players are created together with a 10 numbers card each. 
 The window shows frames that have the array with the solution and the card of each "player.
